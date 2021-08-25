@@ -96,6 +96,8 @@
 $(
     ()=>{
           var plot_data = Object();
+          var result = Object.keys(plot_data).map((key) => [Number(key), plot_data[key]]);
+          console.log(result);
           var xlabel=[];
           var data_1=[];
           var data_2=[];
