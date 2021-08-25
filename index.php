@@ -70,7 +70,7 @@
                     data: data,
                     backgroundColor: 'rgb(255, 99, 71)',
                     borderColor: 'rgb(75, 192, 192)',
-                    
+                    fill: false,
 
                 }]
             }
