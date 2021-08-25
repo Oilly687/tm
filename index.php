@@ -95,7 +95,7 @@
 
 $(
     ()=>{
-          var plot_data = Object(data);
+          var plot_data = Object();
           var xlabel=[];
           var data_1=[];
           var data_2=[];
