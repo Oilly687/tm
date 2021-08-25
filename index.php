@@ -82,9 +82,9 @@
       function loaData(xlabel,data_1,data_2,url){
         $.getJSON(url,function( data) {
              let feeds = data.feeds;
-              $("#lastTempearature").text(feeds[0].field2+" C");
-              $("#lastHumadity").text(feeds[0].field1+" %");
-              $("#lastUpdate").text(feeds[0].created_at);
+              $("#lastTempearature").text(feeds[19].field2+" C");
+              $("#lastHumadity").text(feeds[19].field1+" %");
+              $("#lastUpdate").text(feeds[19].created_at);
         $.each(feeds, (k, v)=>{
               xlabel.push(v.entry_id);
               data_1.push(v.field1);
