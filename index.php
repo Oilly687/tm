@@ -70,12 +70,26 @@
                     data: data,
                     backgroundColor: 'rgb(255, 99, 71)',
                     borderColor: 'rgb(75, 192, 192)',
-                    fill: false,
-                    tension: 0.1,
+                    
+
                 }]
             }
     
         });
+      }
+      
+      function loaData(xlabel,data_1,data_2,url){
+        $.getJSON(url,function( data) {
+             let feeds = data.feeds;
+              $("#lastTempearature").text(feeds[0].field2+" C");
+              $("#lastHumadity").text(feeds[0].field1+" %");
+              $("#lastUpdate").text(feeds[0].created_at);
+        $.each(feeds, (k, v)=>{
+              xlabel.push(v.entry_id);
+              data_1.push(v.field1);
+              data_2.push(v.field2);
+        });
+        });  
       }
 
 $(
@@ -89,17 +103,8 @@ $(
           var label_1 = 'Humadity';
           var label_2 = 'Tempearature';
           let url = "https://api.thingspeak.com/channels/1458419/feeds.json?results=20";
-        $.getJSON(url,function( data) {
-             let feeds = data.feeds;
-              $("#lastTempearature").text(feeds[0].field2+" C");
-              $("#lastHumadity").text(feeds[0].field1+" %");
-              $("#lastUpdate").text(feeds[0].created_at);
-           $.each(feeds, (k, v)=>{
-              xlabel.push(v.entry_id);
-              data_1.push(v.field1);
-              data_2.push(v.field2);
-        });
-        });  
+       
+      loaData(xlabel,data_1,data_2,url);
       showChart(data_1,xlabel,id_1,label_1);
       showChart(data_2,xlabel,id_2,label_2); 
       })     
