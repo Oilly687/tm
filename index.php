@@ -77,6 +77,7 @@
     
         });
       }
+    
       
       function loaData(xlabel,data_1,data_2,url){
         $.getJSON(url,function( data) {
