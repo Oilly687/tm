@@ -84,18 +84,13 @@
               $("#lastTempearature").text(feeds[0].field2+" C");
               $("#lastHumadity").text(feeds[0].field1+" %");
               $("#lastUpdate").text(feeds[0].created_at);
-        $.each(feeds, (k, v)=>{
-              xlabel.push(v.entry_id);
-              data_1.push(v.field1);
-              data_2.push(v.field2);
-        });
         });  
       }
 
 $(
     ()=>{
           var plot_data = Object();
-          var xlabel=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+          var xlabel=[];
           var data_1=[];
           var data_2=[];
           var id_1 = 'myChart';  
