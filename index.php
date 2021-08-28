@@ -18,13 +18,17 @@
     </div>>
  <center> <div class="container">
       <center><div class="row">
-        <div class="col-8">
+        <div class="col-12">
           <canvas id="myChart" width="400" height="200"></canvas>
         </div>
       <div class="row">
-        <div class="col-8">
+        <div class="col-12">
           <canvas id="Chart" width="400" height="200"></canvas>
         </div>
+        <div class="row">
+            <div class="col-12">
+              <canvas id="Chartlight" width="400" height="200"></canvas>
+            </div>
       </div>
       </div>
       <div class="row">
@@ -47,69 +51,130 @@
         </div>
         <div class="row">
           <div class="col-4">
-            <b>Update</b>  
+            <b>Light</b>  
           </div>
            <div class="col-8">
-          <b><span id="lastUpdate"></span></b> 
+          <b><span id="lastlight"></span></b> 
            </div> 
       </div>
-
+      <div class="row">
+        <div class="col-4">
+          <b>Update</b>  
+        </div>
+         <div class="col-8">
+        <b><span id="lastUpdate"></span></b> 
+         </div> 
+    </div>
       </div>
   </div></center>
     
   </body>
   <script>
-     function showChart(data,xlabel,id,label){      
-        var ctx = document.getElementById(id).getContext('2d');
-        var myChart = new Chart (ctx, {
-            type: 'line',
-            data: {
-                labels: xlabel,
-                datasets: [{
-                    label: label,
-                    data: data,
+        
+    function showChart(data){
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myChart = new Chart(ctx,{
+            type:'line',
+            data:{
+                labels:data.xlabel,
+                datasets:[{
+                    label:data.label,
+                    data:data.data,
                     backgroundColor: 'rgb(255, 99, 71)',
                     borderColor: 'rgb(75, 192, 192)',
-                    
-
                 }]
             }
-    
         });
-      }
-    
-      
-      function loaData(xlabel,data_1,data_2,url){
-        $.getJSON(url,function( data) {
-             let feeds = data.feeds;
-              $("#lastTempearature").text(feeds[19].field2+" C");
-              $("#lastHumadity").text(feeds[19].field1+" %");
-              $("#lastUpdate").text(feeds[19].created_at);
-        $.each(feeds, (k, v)=>{
-              xlabel.push(v.entry_id);
-              data_1.push(v.field1);
-              data_2.push(v.field2);
-        });
-        });  
-      }
+    }
 
-$(
-    ()=>{
-          var plot_data = Object();
-          var xlabel=[];
-          var data_1=[];
-          var data_2=[];
-          var id_1 = 'myChart';  
-          var id_2 = 'Chart';
-          var label_1 = 'Humadity';
-          var label_2 = 'Tempearature';
-          let url = "https://api.thingspeak.com/channels/1458419/feeds.json?results=20";
-       
-      loaData(xlabel,data_1,data_2,url);
-      showChart(data_1,xlabel,id_1,label_1);
-      showChart(data_2,xlabel,id_2,label_2); 
-      })     
-  </script>
-  </script>
-    
+    function TempChart(data_2){
+        var ctxy = document.getElementById("Chart").getContext("2d");
+        var myChart = new Chart(ctxy,{
+            type:'line',
+            data:{
+                labels:data_2.xlabel,
+                datasets:[{
+                    label:data_2.label,
+                    data:data_2.data,
+                    backgroundColor: 'rgb(255, 99, 71)',
+                    borderColor: 'rgb(75, 192, 192)',
+                }]
+            }
+        });
+    }
+
+    function LightChart(data_3){
+        var ctxy = document.getElementById("Chartlight").getContext("2d");
+        var myChart = new Chart(ctxy,{
+            type:'line',
+            data:{
+                labels:data_3.xlabel,
+                datasets:[{
+                    label:data_3.label,
+                    data:data_3.data,
+                    backgroundColor: 'rgb(255, 99, 71)',
+                    borderColor: 'rgb(75, 192, 192)',
+                }]
+            }
+        });
+    }
+
+    $(()=>{
+        let url = "https://api.thingspeak.com/channels/1458419/feeds.json?results=240";
+        $.getJSON(url)
+            .done(function(data){
+                let feed = data.feeds;
+                let ch = data.channel;
+
+
+                const d = new Date(feed[239].created_at);
+                    const monthNames = ["January","February","March","April","May","July","August","September","October","November","December"];
+                    let dateStr = d.getDate()+" "+monthNames[d.getMonth()]+" "+d.getFullYear();
+                    dateStr += " "+d.getHours()+":"+d.getMinutes();
+
+
+            $("#lastTempearature").text(feed[239].field2+ " C");
+                $("#lastHumadity").text(feed[239].field1+ " %");
+                $("#lastlight").text(feed[239].field3 );
+                $("#lastUpdate").text(dateStr);
+
+                var plot_data = Object();
+                var xlabel = [];
+                var T = [];
+                var H = [];
+                var L =[];
+
+                $.each(feed,(k,v)=>{
+                    xlabel.push(v.created_at);
+                    H.push(v.field1);
+                    T.push(v.field2);
+                    L.push(v.field3)
+                });
+                var data = new Object();
+                data.xlabel = xlabel;
+                data.data = T;
+                data.label = ch.field2;
+              
+
+                var data_2 = new Object();
+                data_2.xlabel = xlabel;
+                data_2.data = H;
+                data_2.label = ch.field1;
+               
+
+                var data_3 = new Object();
+                data_3.xlabel = xlabel;
+                data_3.data = L;
+                data_3.label = ch.field3;
+               
+
+                showChart(data);
+                TempChart(data_2);
+                LightChart(data_3);
+
+
+
+            });
+    });
+</script>
 </html>
