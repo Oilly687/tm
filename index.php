@@ -145,7 +145,7 @@
                 var L =[];
 
                 $.each(feed,(k,v)=>{
-                    xlabel.push(v.created_at);
+                    xlabel.push(v.field4 +":"+ v.field5);
                     H.push(v.field1);
                     T.push(v.field2);
                     L.push(v.field3)
