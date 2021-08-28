@@ -15,7 +15,7 @@
   <body>
     <div class="container p-3 my-3 bg-dark text-white">
         <center><h1>62111687 APAPORN THIPSAVAK</h1></center> 
-    </div>>
+    </div>
  <center> <div class="container">
       <center><div class="row">
         <div class="col-12">
@@ -32,36 +32,36 @@
       </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-6">
           <div class="row">
-              <div class="col-4">
+              <div class="col-6">
                 <b>Temperature</b>
               </div>
-               <div class="col-8">
+               <div class="col-6">
                   <b><span id="lastTempearature"></span></b>
                </div> 
           </div>
           <div class="row">
-            <div class="col-4">
+            <div class="col-6">
               <b>Humadity</b>
             </div>
-             <div class="col-8">
+             <div class="col-6">
                 <b><span id="lastHumadity"></span></b>
              </div> 
         </div>
         <div class="row">
-          <div class="col-4">
+          <div class="col-6">
             <b>Light</b>  
           </div>
-           <div class="col-8">
+           <div class="col-6">
           <b><span id="lastlight"></span></b> 
            </div> 
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-6">
           <b>Update</b>  
         </div>
-         <div class="col-8">
+         <div class="col-6">
         <b><span id="lastUpdate"></span></b> 
          </div> 
     </div>
